@@ -1,23 +1,18 @@
-
 import os
 from pathlib import Path
 
 import dj_database_url
 
-
 BASE_DIR = Path(__file__).resolve().parent.parent
-
 
 SECRET_KEY = os.environ.get(
     "SECRET_KEY",
     "django-insecure-local-development-only-key",
 )
 
-DEBUG = os.environ.get(
-    "DEBUG",
-    "True",
-).lower() == "true"
-
+DEBUG = (
+    os.environ.get("DEBUG", "True").lower() == "true"
+)
 
 ALLOWED_HOSTS = [
     "127.0.0.1",
@@ -29,9 +24,7 @@ render_hostname = os.environ.get(
 )
 
 if render_hostname:
-    ALLOWED_HOSTS.append(
-        render_hostname
-    )
+    ALLOWED_HOSTS.append(render_hostname)
 
 extra_allowed_hosts = os.environ.get(
     "ALLOWED_HOSTS"
@@ -44,7 +37,6 @@ if extra_allowed_hosts:
         if host.strip()
     )
 
-
 INSTALLED_APPS = [
     "django.contrib.admin",
     "django.contrib.auth",
@@ -52,13 +44,10 @@ INSTALLED_APPS = [
     "django.contrib.sessions",
     "django.contrib.messages",
     "django.contrib.staticfiles",
-
     "corsheaders",
     "rest_framework",
-
     "profiles",
 ]
-
 
 MIDDLEWARE = [
     "django.middleware.security.SecurityMiddleware",
@@ -71,9 +60,7 @@ MIDDLEWARE = [
     "django.middleware.clickjacking.XFrameOptionsMiddleware",
 ]
 
-
 ROOT_URLCONF = "config.urls"
-
 
 TEMPLATES = [
     {
@@ -90,9 +77,7 @@ TEMPLATES = [
     },
 ]
 
-
 WSGI_APPLICATION = "config.wsgi.application"
-
 
 DATABASES = {
     "default": dj_database_url.config(
@@ -100,7 +85,6 @@ DATABASES = {
         conn_max_age=600,
     )
 }
-
 
 AUTH_PASSWORD_VALIDATORS = [
     {
@@ -117,7 +101,6 @@ AUTH_PASSWORD_VALIDATORS = [
     },
 ]
 
-
 LANGUAGE_CODE = "en-us"
 
 TIME_ZONE = "UTC"
@@ -126,35 +109,28 @@ USE_I18N = True
 
 USE_TZ = True
 
-
 STATIC_URL = "/static/"
 
 STATIC_ROOT = BASE_DIR / "staticfiles"
-
 
 MEDIA_URL = "/media/"
 
 MEDIA_ROOT = BASE_DIR / "media"
 
-
 DATA_UPLOAD_MAX_MEMORY_SIZE = 6 * 1024 * 1024
 
 FILE_UPLOAD_MAX_MEMORY_SIZE = 6 * 1024 * 1024
-
 
 CORS_ALLOWED_ORIGINS = [
     "http://localhost:3000",
 ]
 
-frontend_url = os.environ.get(
-    "FRONTEND_URL"
-)
+frontend_url = os.environ.get("FRONTEND_URL")
 
 if frontend_url:
     CORS_ALLOWED_ORIGINS.append(
         frontend_url.rstrip("/")
     )
-
 
 CSRF_TRUSTED_ORIGINS = [
     "http://localhost:3000",
@@ -165,7 +141,6 @@ if frontend_url:
         frontend_url.rstrip("/")
     )
 
-
 if not DEBUG:
     SECURE_PROXY_SSL_HEADER = (
         "HTTP_X_FORWARDED_PROTO",
@@ -173,9 +148,6 @@ if not DEBUG:
     )
 
     SESSION_COOKIE_SECURE = True
-
     CSRF_COOKIE_SECURE = True
 
-
 DEFAULT_AUTO_FIELD = "django.db.models.BigAutoField"
-
