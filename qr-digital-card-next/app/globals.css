@@ -1,0 +1,196 @@
+@import "tailwindcss";
+
+:root {
+  --background: #08090d;
+  --foreground: #f5f5f5;
+}
+
+* {
+  box-sizing: border-box;
+}
+
+html {
+  min-width: 320px;
+  background: var(--background);
+  color-scheme: dark;
+}
+
+body {
+  min-width: 320px;
+  min-height: 100vh;
+  margin: 0;
+  background: var(--background);
+  color: var(--foreground);
+}
+
+button,
+input,
+textarea {
+  font: inherit;
+}
+
+button,
+a {
+  -webkit-tap-highlight-color: transparent;
+}
+
+img {
+  display: block;
+  max-width: 100%;
+}
+
+::selection {
+  background: rgb(167 139 250 / 0.25);
+  color: white;
+}
+
+
+.section-label {
+  font-size: 9px;
+  font-weight: 700;
+  letter-spacing: 0.18em;
+  color: rgb(255 255 255 / 0.3);
+}
+
+
+.card-perspective {
+  perspective: 1600px;
+  width: 100%;
+  outline: none;
+}
+
+.card-3d {
+  position: relative;
+  width: 100%;
+  aspect-ratio: 1.58 / 1;
+  transform-style: preserve-3d;
+  transition: transform 800ms cubic-bezier(0.2, 0.75, 0.2, 1);
+}
+
+.card-3d-flipped {
+  transform: rotateY(180deg);
+}
+
+.card-face {
+  position: absolute;
+  inset: 0;
+  display: flex;
+  min-width: 0;
+  min-height: 0;
+  flex-direction: column;
+  overflow: hidden;
+  padding: clamp(14px, 2.2vw, 24px);
+  border: 1px solid rgb(255 255 255 / 0.12);
+  border-radius: clamp(18px, 2vw, 24px);
+  backface-visibility: hidden;
+  -webkit-backface-visibility: hidden;
+  background:
+    radial-gradient(circle at 80% 15%,
+      rgb(139 92 246 / 0.16),
+      transparent 35%),
+    linear-gradient(145deg,
+      #1a1a24,
+      #0d0e13);
+  box-shadow:
+    0 35px 90px rgb(0 0 0 / 0.45),
+    inset 0 1px 0 rgb(255 255 255 / 0.06);
+}
+
+.card-back {
+  transform: rotateY(180deg);
+}
+
+.card-noise {
+  position: absolute;
+  inset: 0;
+  opacity: 0.035;
+  pointer-events: none;
+  background-image:
+    url("data:image/svg+xml,%3Csvg viewBox='0 0 180 180' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='.8'/%3E%3C/svg%3E");
+}
+
+.card-orb {
+  position: absolute;
+  width: 170px;
+  height: 170px;
+  top: -85px;
+  right: -55px;
+  border-radius: 999px;
+  background: rgb(139 92 246 / 0.18);
+  filter: blur(35px);
+  pointer-events: none;
+}
+
+.card-orb-back {
+  top: auto;
+  right: auto;
+  bottom: -100px;
+  left: -75px;
+  background: rgb(99 102 241 / 0.13);
+}
+
+.card-perspective:focus-visible {
+  border-radius: 24px;
+  outline: 2px solid rgb(167 139 250 / 0.7);
+  outline-offset: 5px;
+}
+
+@media (max-width: 380px) {
+  .card-face {
+    padding: 13px;
+    border-radius: 18px;
+  }
+
+  .card-orb {
+    width: 120px;
+    height: 120px;
+    top: -60px;
+    right: -40px;
+  }
+
+  .card-orb-back {
+    top: auto;
+    right: auto;
+    bottom: -70px;
+    left: -50px;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .card-3d {
+    transition: none;
+  }
+}
+
+
+@media print {
+  @page {
+    size: A4;
+    margin: 20mm;
+  }
+
+  body {
+    background: white !important;
+    color: black !important;
+  }
+
+  header,
+  nav,
+  button,
+  a,
+  .print\:hidden {
+    display: none !important;
+  }
+
+  .print\:border-0 {
+    border: 0 !important;
+  }
+
+  .print\:bg-white {
+    background: white !important;
+  }
+
+  .print\:text-black {
+    color: black !important;
+  }
+}
